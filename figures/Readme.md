@@ -1,1 +1,0 @@
-# All Figures in Paper.
