@@ -31,7 +31,7 @@ The first colomn is the $9^{th}$ Scene of KAIST. The rest columns are the spectr
 ## HFC PartI
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/overallfig.jpg" height="80%" width="80%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/overallfig.jpg" height="50%" width="50%" alt="">
 </div>
 
 Top: example HSIs from the KAIST dataset and remote datasets: Chikusei and Urban. Middle: the corresponding spectral correlation heatmap in the space domain. Bottom: the corresponding spectral correlation heatmap in the frequency domain.
@@ -39,7 +39,7 @@ Top: example HSIs from the KAIST dataset and remote datasets: Chikusei and Urban
 ## HFC PartII
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/fig2.jpg" height="80%" width="80%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/fig2.jpg" height="50%" width="50%" alt="">
 </div>
 
 Visualisation of the frequency-domain spectral correlation heatmap from patch-1 to patch-5 in spectrogram of HSI.
