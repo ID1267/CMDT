@@ -47,8 +47,8 @@ Visualisation of the frequency-domain spectral correlation heatmap from patch-1 
 ## Statistics of HFC
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/distribution_graph.png" height="50%" width="50%" alt="">
-<img src="https://github.com/ID1267/DST/blob/main/figures/distribution_graph_whole.png" height="50%" width="50%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/distribution_graph.png" height="30%" width="30%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/distribution_graph_whole.png" height="30%" width="30%" alt="">
 </div>
 
 (a) Histogram of the number of samples with spectral correlation in dual domains of all 1029 HSIs. (b) The probability distribution graph of spectral correlation in dual domains of all HSIs.
