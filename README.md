@@ -20,14 +20,38 @@ Deep-prior-based unfolding networks are recently emerging as potent methods in h
 
 # Hyperspectral Frequency Correlation (HFC) Prior
 
-## Rough View
+## Rough Visualization
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/visualdct.jpg" height="100%" width="100%" alt="">
-<img src="https://github.com/ID1267/DST/blob/main/figures/visualdct.jpg" height="100%" width="100%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/visualdct.jpg" height="80%" width="80%" alt="">
 </div>
 
 The first colomn is the $9^{th}$ Scene of KAIST. The rest columns are the spectrograms of different spectra with specific wavelengths of $Scene9$.
+
+## HFC PartI
+
+<div align=center>
+<img src="https://github.com/ID1267/DST/blob/main/figures/overallfig.jpg" height="80%" width="80%" alt="">
+</div>
+
+Top: example HSIs from the KAIST dataset and remote datasets: Chikusei and Urban. Middle: the corresponding spectral correlation heatmap in the space domain. Bottom: the corresponding spectral correlation heatmap in the frequency domain.
+
+## HFC PartII
+
+<div align=center>
+<img src="https://github.com/ID1267/DST/blob/main/figures/fig2.jpg" height="80%" width="80%" alt="">
+</div>
+
+Visualisation of the frequency-domain spectral correlation heatmap from patch-1 to patch-5 in spectrogram of HSI.
+
+## Statistics of HFC
+
+<div align=center>
+<img src="https://github.com/ID1267/DST/blob/main/figures/distribution_graph.png" height="50%" width="50%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/distribution_graph_whole.png" height="50%" width="50%" alt="">
+</div>
+
+(a) Histogram of the number of samples with spectral correlation in dual domains of all 1029 HSIs. (b) The probability distribution graph of spectral correlation in dual domains of all HSIs.
 
 # Architecture
 
