@@ -1,6 +1,6 @@
 # pretrained model:
 
-### DSTUF_2stg
-### DSTUF_3stg
-### DSTUF_5stg
-### DSTUF_9stg
+### DSTUF_2stg.pth
+### DSTUF_3stg.pth
+### DSTUF_5stg.pth
+### DSTUF_9stg.pth
