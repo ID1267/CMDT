@@ -15,7 +15,7 @@ Deep-prior-based unfolding networks are recently emerging as potent methods in h
 # Comparison with state-of-the-art methods
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/psnr-ssim-flops.png" width = "350" height = "150" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/psnr-ssim-flops.png" width = "450" height = "150" alt="">
 </div>
 
  PSNR-Parameters comparisons with previous HSI reconstruction methods. The vertical axis is PSNR (in dB performance), and the horizontal axis is Parameters(memory cost). Our proposed Residual Degradation Learning Unfolding Framework with Mixing priors across Spatial and Spectral(RDLUF-Mix $S^2$ ) Transformers outperforms previous methods while requiring fewer parameters.
