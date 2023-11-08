@@ -22,10 +22,10 @@ Deep-prior-based unfolding networks are recently emerging as potent methods in h
 
 # Architecture
 
-## Residual Degradation Learning Unfolding Framework
+## Dual-domain Spectral-spatial Transformer-based Unfolding Framework
 
 <div align=center>
-<img src="https://github.com/ShawnDong98/RDLUF_MixS2/blob/master/figures/RDLUF.png" width = "700" height = "300" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/DSTUF.jpg" height="80%" width="80%" alt="">
 </div>
 
 The architecture of our RDLUF with $K$ stages (iterations). RDLGD and PM denote the Residual Degradation Learning Gradient Descent module and the Proximal Mapping module in each stage. There is a stage interaction between stages.
@@ -33,7 +33,7 @@ The architecture of our RDLUF with $K$ stages (iterations). RDLGD and PM denote 
 ## Mixing priors across Spectral and Spatial Transformer(PM)
 
 <div align=center>
-<img src="https://github.com/ShawnDong98/RDLUF_MixS2/blob/master/figures/MixS2T.png" width = "700" height = "500" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/FCSA.jpg" height="80%" width="80%" alt="">
 </div>
 
 Diagram of the Mix $S^2$ Transformer. (a) Mix $S^2$ Transformer adopts a U-shaped structure with block interactions. (b) The basic unit of the MixS2 Transformer, Mix $S^2$ block. (c) The structure of the spectral self-attention branch. (d) The structure of the lightweight inception branch. (e) The components of the gated-Dconv feed-forward network(GDFN)
