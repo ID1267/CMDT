@@ -80,7 +80,7 @@ Diagram of the Frequency Process. (a) The structure of the patched frequency-dom
 Download cave_1024_28 ([Baidu Disk](https://pan.baidu.com/s/1X_uXxgyO-mslnCTn4ioyNQ), code: `fo0q` | [One Drive](https://bupteducn-my.sharepoint.com/:f:/g/personal/mengziyi_bupt_edu_cn/EmNAsycFKNNNgHfV9Kib4osB7OD4OSu-Gu6Qnyy5PweG0A?e=5NrM6S)), CAVE_512_28 ([Baidu Disk](https://pan.baidu.com/s/1ue26weBAbn61a7hyT9CDkg), code: `ixoe` | [One Drive](https://mailstsinghuaeducn-my.sharepoint.com/:f:/g/personal/lin-j21_mails_tsinghua_edu_cn/EjhS1U_F7I1PjjjtjKNtUF8BJdsqZ6BSMag_grUfzsTABA?e=sOpwm4)), KAIST_CVPR2021 ([Baidu Disk](https://pan.baidu.com/s/1LfPqGe0R_tuQjCXC_fALZA), code: `5mmn` | [One Drive](https://mailstsinghuaeducn-my.sharepoint.com/:f:/g/personal/lin-j21_mails_tsinghua_edu_cn/EkA4B4GU8AdDu0ZkKXdewPwBd64adYGsMPB8PNCuYnpGlA?e=VFb3xP)), TSA_simu_data ([Baidu Disk](https://pan.baidu.com/s/1LI9tMaSprtxT8PiAG1oETA), code: `efu8` | [One Drive](https://1drv.ms/u/s!Au_cHqZBKiu2gYFDwE-7z1fzeWCRDA?e=ofvwrD)), TSA_real_data ([Baidu Disk](https://pan.baidu.com/s/1RoOb1CKsUPFu0r01tRi5Bg), code: `eaqe` | [One Drive](https://1drv.ms/u/s!Au_cHqZBKiu2gYFTpCwLdTi_eSw6ww?e=uiEToT)), and then put them into the corresponding folders of `datasets/` and recollect them as the following form:
 
 ```shell
-|--RDLUF_MixS2
+|--DST
     |--real
     	|-- test_code
     	|-- train_code
@@ -130,48 +130,48 @@ Download cave_1024_28 ([Baidu Disk](https://pan.baidu.com/s/1X_uXxgyO-mslnCTn4io
 
 
 ```
-cd RDLUF_MixS2/simulation/train_code/
+cd DST/simulation/train_code/
 
-# RdLUF-MixS2 3stage
-python train.py --template duf_mixs2 --outf ./exp/duf_mixs2_3stage/ --method duf_mixs2 --stage 3 --body_share_params 0  --clip_grad
+# DSTUF 2stage
+python train.py --template dstuf_2stg --outf ./exp/dstuf_2stg/ --method dstuf_2stg
 
-# RdLUF-MixS2 5stage
-python train.py --template duf_mixs2 --outf ./exp/duf_mixs2_5stage/ --method duf_mixs2 --stage 5 --body_share_params 1  --clip_grad
+# DSTUF 3stage
+python train.py --template dstuf_3stg --outf ./exp/dstuf_3stg/ --method dstuf_3stg
 
-# RdLUF-MixS2 7stage
-python train.py --template duf_mixs2 --outf ./exp/duf_mixs2_7stage/ --method duf_mixs2 --stage 7 --body_share_params 1  --clip_grad
+# DSTUF 5stage
+python train.py --template dstuf_5stg --outf ./exp/dstuf_5stg/ --method dstuf_5stg
 
-# RdLUF-MixS2 9stage
-python train.py --template duf_mixs2 --outf ./exp/duf_mixs2_9stage/ --method duf_mixs2 --stage 9 --body_share_params 1  --clip_grad
+# DSTUF 9stage
+python train.py --template dstuf_9stg --outf ./exp/dstuf_9stg/ --method dstuf_9stg
 ```
 
-The training log, trained model, and reconstrcuted HSI will be available in `RDLUF_MixS2/simulation/train_code/exp/` .
+The training log, trained model, and reconstrcuted HSI will be available in `DSTUF/simulation/train_code/exp/` .
 
 ### Testing
 
-Place the pretrained model to `RDLUF_MixS2/simulation/test_code/checkpoints/`
+Place the pretrained model path to "opt.pretrained_model_path" in "DST/simulation/test_code/option.py".
 
 Run the following command to test the model on the simulation dataset.
 
 ```
-cd RDLUF_MixS2/simulation/test_code/
+cd DST/simulation/test_code/
 
 
-# RdLUF-MixS2 3stage
-python test.py --template duf_mixs2 --stage 3 --body_share_params 0 --outf ./exp/duf_mixs2_3stage/ --method duf_mixs2 --pretrained_model_path ./checkpoints/RDLUF_MixS2_3stage.pth
+# DSTUF 2stage
+python test.py --template dstuf_2stg --outf ./exp/dstuf_2stg/ --method dstuf_2stg
 
-# RdLUF-MixS2 5stage
-python test.py --template duf_mixs2 --stage 5 --body_share_params 1 --outf ./exp/duf_mixs2_5stage/ --method duf_mixs2 --pretrained_model_path ./checkpoints/RDLUF_MixS2_5stage.pth
+# DSTUF 3stage
+python test.py --template dstuf_3stg --outf ./exp/dstuf_3stg/ --method dstuf_3stg
 
-# RdLUF-MixS2 7stage
-python test.py --template duf_mixs2 --stage 7 --body_share_params 1 --outf ./exp/duf_mixs2_7stage/ --method duf_mixs2 --pretrained_model_path ./checkpoints/RDLUF_MixS2_7stage.pth
+# DSTUF 5stage
+python test.py --template dstuf_5stg --outf ./exp/dstuf_5stg/ --method dstuf_5stg
 
-# RdLUF-MixS2 9stage
-python test.py --template duf_mixs2 --stage 9 --body_share_params 1 --outf ./exp/duf_mixs2_9stage/ --method duf_mixs2 --pretrained_model_path ./checkpoints/RDLUF_MixS2_9stage.pth
+# DSTUF 9stage
+python test.py --template dstuf_9stg --outf ./exp/dstuf_9stg/ --method dstuf_9stg
 ```
 
-- The reconstrcuted HSIs will be output into `RDLUF_MixS2/simulation/test_code/exp/`
-- Place the reconstructed results into `RDLUF_MixS2/simulation/test_code/Quality_Metrics/results` and
+- The reconstrcuted HSIs will be output into `DSTUF/simulation/test_code/exp/`
+- Place the reconstructed results into `DSTUF/simulation/test_code/Quality_Metrics/results` and
 
 ```
 Run cal_quality_assessment.m
@@ -181,11 +181,11 @@ to calculate the PSNR and SSIM of the reconstructed HSIs.
 
 ### Visualization
 
-- Put the reconstruted HSI in `RDLUF_MixS2/visualization/simulation_results/results` and rename it as method.mat, e.g., RDLUF_MixS2_9stage.mat
+- Put the reconstruted HSI in `DSTUF/visualization/simulation_results/results` and rename it as method.mat, e.g., DSTUF_2stg.mat
 - Generate the RGB images of the reconstructed HSIs
 
 ```
-cd RDLUF_MixS2/visualization/
+cd DSTUF/visualization/
 Run show_simulation.m 
 ```
 
@@ -194,50 +194,37 @@ Run show_simulation.m
 ### Training
 
 ```
-cd RDLUF_MixS2/real/train_code/
+cd DSTUF/real/train_code/
 
-# RDLUF-MixS2 3stage
-python train.py --template duf_mixs2 --outf ./exp/rdluf_mixs2_3stage/ --method duf_mixs2 --stage 3 --body_share_params 1
+# DSTUF 2stage
+python train.py --template DSTUF_2stg --outf ./exp/DSTUF_2stg/ --method DSTUF_2stg
 ```
 
-The training log and trained model will be available in `RDLUF_MixS2/real/train_code/exp/`
+The training log and trained model will be available in `DSTUF/real/train_code/exp/`
 
 ### Testing
 
 ```
-cd RDLUF_MixS2/real/test_code/
+Place the pretrained model path to "pretrained_model_path" in "DSTUF/real/test_code/test.py".
 
-# RDLUF-MixS2 3stage
-python test.py --template duf_mixs2 --outf ./exp/rdluf_mixs2_3stage/ --method duf_mixs2 --stage 3 --body_share_params 1 --pretrained_model_path ./checkpoints/RDLUF_MixS2_3stage.pth
+cd DSTUF/real/test_code/
+
+# DSTUF 2stage
+python test.py --template DSTUF_2stg --outf ./exp/DSTUF_2stg/ --method DSTUF_2stg
 ```
 
-The reconstrcuted HSI will be output into `RDLUF_MixS2/real/test_code/Results/`
+The reconstrcuted HSI will be output into `DSTUF/real/test_code/Results/`
 
 ### Visualization
 
-- Put the reconstruted HSI in `RDLUF_MixS2/visualization/real_results/results` and rename it as method.mat, e.g., RDLUF_MixS2_3stage.mat.
+- Put the reconstruted HSI in `DSTUF/visualization/real_results/results` and rename it as method.mat, e.g., DSTUF_2stg.mat.
 - Generate the RGB images of the reconstructed HSI
 
 ```
-cd RDLUF_MixS2/visualization/
+cd DSTUF/visualization/
 Run show_real.m
 ```
 
 ## Acknowledgements
 
-Our code is heavily borrowed from [MST](https://github.com/caiyuanhao1998/MST)  and [DGSMP](https://github.com/TaoHuang95/DGSMP), thanks for their generous open source.
-
-
-## Citation
-
-If this code helps you, please consider citing our works:
-
-```shell
-@inproceedings{dong2023residual,
-  title={Residual Degradation Learning Unfolding Framework with Mixing Priors across Spectral and Spatial for Compressive Spectral Imaging},
-  author={Dong, Yubo and Gao, Dahua and Qiu, Tian and Li, Yuyan and Yang, Minxi and Shi, Guangming},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  pages={22262--22271},
-  year={2023}
-}
-```
+Our code is heavily borrowed from [MST](https://github.com/caiyuanhao1998/MST)  and [DAUHST](https://github.com/caiyuanhao1998/MST), thanks for their generous open source.
