@@ -63,13 +63,13 @@ Visualisation of the frequency-domain spectral correlation heatmap from patch-1 
 
 The architecture of our RDLUF with $K$ stages (iterations). RDLGD and PM denote the Residual Degradation Learning Gradient Descent module and the Proximal Mapping module in each stage. There is a stage interaction between stages.
 
-## Mixing priors across Spectral and Spatial Transformer(PM)
+## Frequency Process
 
 <div align=center>
 <img src="https://github.com/ID1267/DST/blob/main/figures/FCSA.jpg" height="80%" width="80%" alt="">
 </div>
 
-Diagram of the Mix $S^2$ Transformer. (a) Mix $S^2$ Transformer adopts a U-shaped structure with block interactions. (b) The basic unit of the MixS2 Transformer, Mix $S^2$ block. (c) The structure of the spectral self-attention branch. (d) The structure of the lightweight inception branch. (e) The components of the gated-Dconv feed-forward network(GDFN)
+Diagram of the Frequency Process. (a) The structure of the patched frequency-domain channel-wise self-attention module. (b) The structure of the spectral-spatial frequency fusion module.
 
 
 
