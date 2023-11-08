@@ -1,7 +1,7 @@
 # DSTUF for CASSI
 
 
-This repo is the implementation of paper "Residual Degradation Learning Unfolding Framework with Mixing Priors across Spectral and Spatial for Compressive Spectral Imaging"
+This repo is the illustration and implementation of paper "Exploiting Spectral Correlation in Frequency Domain for Hyperspectral Imaging"
 
 |                          *Scene 1*                           |                          *Scene 6*                           |                          *Scene 8*                           |                          *Scene 10*                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
@@ -18,7 +18,16 @@ Deep-prior-based unfolding networks are recently emerging as potent methods in h
 <img src="https://github.com/ID1267/DST/blob/main/figures/psnr-ssim-flops.png" height="50%" width="50%" alt="">
 </div>
 
- PSNR-Parameters comparisons with previous HSI reconstruction methods. The vertical axis is PSNR (in dB performance), and the horizontal axis is Parameters(memory cost). Our proposed Residual Degradation Learning Unfolding Framework with Mixing priors across Spatial and Spectral(RDLUF-Mix $S^2$ ) Transformers outperforms previous methods while requiring fewer parameters.
+# Hyperspectral Frequency Correlation (HFC) Prior
+
+## Rough View
+
+<div align=center>
+<img src="https://github.com/ID1267/DST/blob/main/figures/visualdct.jpg" height="100%" width="100%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/visualdct.jpg" height="100%" width="100%" alt="">
+</div>
+
+The first colomn is the $9^{th}$ Scene of KAIST. The rest columns are the spectrograms of different spectra with specific wavelengths of $Scene9$.
 
 # Architecture
 
