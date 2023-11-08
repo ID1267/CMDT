@@ -21,6 +21,8 @@ Deep-prior-based unfolding networks are recently emerging as potent methods in h
 <img src="https://github.com/ID1267/DST/blob/main/figures/psnr-ssim-flops.png" height="50%" width="50%" alt="">
 </div>
 
+PSNR-Params-FLOPs comparisons of our DSTUF and SOTA methods. The scale of circles matches with parameters (M).
+
 # Hyperspectral Frequency Correlation (HFC) Prior
 
 ## Rough Visualization
