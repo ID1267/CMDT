@@ -21,7 +21,7 @@ Deep priors have emerged as potent methods in hyperspectral image (HSI) reconstr
 <img src="https://github.com/ID1267/DST/blob/main/figures/psnr-ssim-flops-final.png" height="50%" width="50%" alt="">
 </div>
 
-PSNR-Params-FLOPs comparisons of our DSTUF and SOTA methods. The scale of circles matches with parameters (M).
+PSNR-Params-FLOPs comparisons of our method and SOTA methods. The scale of circles matches with parameters (M).
 
 # Hyperspectral Frequency Correlation (HFC) Prior
 
@@ -39,7 +39,7 @@ The first colomn is the $9^{th}$ Scene of KAIST. The rest columns are the spectr
 <img src="https://github.com/ID1267/DST/blob/main/figures/HFC.png" height="40%" width="40%" alt="">
 </div>
 
-Top: example HSIs from the KAIST dataset and remote datasets: Chikusei and Urban. Middle: the corresponding spectral correlation heatmap in the space domain. Bottom: the corresponding spectral correlation heatmap in the frequency domain.
+Top: example HSIs from the nature scenes and the remote sensing scenes. Bottom: the corresponding spectral-spatial correlation heatmap of frequency tokens and space tokens.
 
 ## HFC PartII
 
@@ -47,7 +47,7 @@ Top: example HSIs from the KAIST dataset and remote datasets: Chikusei and Urban
 <img src="https://github.com/ID1267/DST/blob/main/figures/patch.png" height="50%" width="50%" alt="">
 </div>
 
-Visualisation of the frequency-domain spectral correlation heatmap from patch-1 to patch-5 in spectrogram of HSI.
+Visualization of the spectral-spatial correlation heatmap from frequency token-1 to token-5 in spectrogram of HSI.
 
 ## Statistics of HFC
 
@@ -56,7 +56,7 @@ Visualisation of the frequency-domain spectral correlation heatmap from patch-1 
 <img src="https://github.com/ID1267/DST/blob/main/figures/distribution_graph_whole.png" height="30%" width="30%" alt="">
 </div>
 
-(a) Histogram of the number of samples with spectral correlation in dual domains of all 1029 HSIs. (b) The probability distribution graph of spectral correlation in dual domains of all HSIs.
+(a) Histogram of the number of samples with spectral correlation in dual domains of 1029 HSIs. (b) The probability distribution graph of spectral correlation in dual domains of 1029 HSIs.
 
 # Architecture
 
@@ -66,7 +66,7 @@ Visualisation of the frequency-domain spectral correlation heatmap from patch-1 
 <img src="https://github.com/ID1267/DST/blob/main/figures/DFUF.png" height="80%" width="80%" alt="">
 </div>
 
-The architecture of our RDLUF with $K$ stages (iterations). RDLGD and PM denote the Residual Degradation Learning Gradient Descent module and the Proximal Mapping module in each stage. There is a stage interaction between stages.
+Diagram of the overall framework. (a) Correlation-driven Mixing Domains Transformer-based Unfolding Framework. (b) The pipeline of the U-shaped prior module. (c) The correlation-driven mixing domains transformer. (d) The structure of space domain learning.
 
 ## Frequency Process
 
@@ -74,7 +74,7 @@ The architecture of our RDLUF with $K$ stages (iterations). RDLGD and PM denote 
 <img src="https://github.com/ID1267/DST/blob/main/figures/FDLB.png" height="80%" width="80%" alt="">
 </div>
 
-Diagram of the Frequency Process. (a) The structure of the patched frequency-domain channel-wise self-attention module. (b) The structure of the spectral-spatial frequency fusion module.
+The pipeline of the frequency domain learning. (a) The structure of the spectral-wise self-attention of frequency. (b) The structure of the spectral-spatial interaction of frequency.
 
 
 
