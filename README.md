@@ -18,7 +18,7 @@ Deep priors have emerged as potent methods in hyperspectral image (HSI) reconstr
 # Comparison with state-of-the-art methods
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/psnr-ssim-flops.png" height="50%" width="50%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/compfinal.pdf" height="50%" width="50%" alt="">
 </div>
 
 PSNR-Params-FLOPs comparisons of our DSTUF and SOTA methods. The scale of circles matches with parameters (M).
