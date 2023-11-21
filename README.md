@@ -18,7 +18,7 @@ Deep priors have emerged as potent methods in hyperspectral image (HSI) reconstr
 # Comparison with state-of-the-art methods
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/compfinal.pdf" height="50%" width="50%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/psnr-ssim-flops-final.png" height="50%" width="50%" alt="">
 </div>
 
 PSNR-Params-FLOPs comparisons of our DSTUF and SOTA methods. The scale of circles matches with parameters (M).
@@ -36,7 +36,7 @@ The first colomn is the $9^{th}$ Scene of KAIST. The rest columns are the spectr
 ## HFC PartI
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/overallfig.jpg" height="40%" width="40%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/HFC.png" height="40%" width="40%" alt="">
 </div>
 
 Top: example HSIs from the KAIST dataset and remote datasets: Chikusei and Urban. Middle: the corresponding spectral correlation heatmap in the space domain. Bottom: the corresponding spectral correlation heatmap in the frequency domain.
@@ -44,7 +44,7 @@ Top: example HSIs from the KAIST dataset and remote datasets: Chikusei and Urban
 ## HFC PartII
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/fig2.jpg" height="50%" width="50%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/patch.png" height="50%" width="50%" alt="">
 </div>
 
 Visualisation of the frequency-domain spectral correlation heatmap from patch-1 to patch-5 in spectrogram of HSI.
@@ -63,7 +63,7 @@ Visualisation of the frequency-domain spectral correlation heatmap from patch-1 
 ## Dual-domain Spectral-spatial Transformer-based Unfolding Framework
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/DSTUF.jpg" height="80%" width="80%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/DFUF.png" height="80%" width="80%" alt="">
 </div>
 
 The architecture of our RDLUF with $K$ stages (iterations). RDLGD and PM denote the Residual Degradation Learning Gradient Descent module and the Proximal Mapping module in each stage. There is a stage interaction between stages.
@@ -71,7 +71,7 @@ The architecture of our RDLUF with $K$ stages (iterations). RDLGD and PM denote 
 ## Frequency Process
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/FCSA.jpg" height="80%" width="80%" alt="">
+<img src="https://github.com/ID1267/DST/blob/main/figures/FDLB.png" height="80%" width="80%" alt="">
 </div>
 
 Diagram of the Frequency Process. (a) The structure of the patched frequency-domain channel-wise self-attention module. (b) The structure of the spectral-spatial frequency fusion module.
