@@ -33,7 +33,7 @@ PSNR-Params-FLOPs comparisons of our method and SOTA methods. The scale of circl
 
 The first column is the $9^{th}$ Scene of KAIST. The rest columns are the spectrograms of different spectra with specific wavelengths of $Scene9$.
 
-## HFC PartI
+## Visualisations in HFC
 
 <div align=center>
 <img src="https://github.com/ID1267/CMDT/blob/main/figures/HFC.png" height="40%" width="40%" alt="">
@@ -41,34 +41,31 @@ The first column is the $9^{th}$ Scene of KAIST. The rest columns are the spectr
 
 Top: example HSIs from the nature scenes and the remote sensing scenes. Bottom: the corresponding spectral-spatial correlation heatmap of frequency tokens and space tokens.
 
-## HFC PartII
-
 <div align=center>
 <img src="https://github.com/ID1267/CMDT/blob/main/figures/patch.png" height="50%" width="50%" alt="">
 </div>
 
 Visualization of the spectral-spatial correlation heatmap from frequency token-1 to token-5 in the spectrogram of HSI.
 
-## Statistics of HFC
+## Statistics in HFC
 
 <div align=center>
-<img src="https://github.com/ID1267/CMDT/blob/main/figures/distribution_graph.png" height="30%" width="30%" alt="">
-<img src="https://github.com/ID1267/CMDT/blob/main/figures/distribution_graph_whole.png" height="30%" width="30%" alt="">
+<img src="https://github.com/ID1267/CMDT/blob/main/figures/histogram.png" height="30%" width="30%" alt="">
+<img src="https://github.com/ID1267/CMDT/blob/main/figures/probability.png" height="30%" width="30%" alt="">
 </div>
 
-(a) Histogram of the number of samples with spectral correlation in dual domains of 1029 HSIs. (b) The probability distribution graph of spectral correlation in dual domains of 1029 HSIs.
+(a) Histogram of the number of samples with spectral correlation in two domains of 1029 HSIs. (b) The probability distribution graph of spectral correlation in two domains of 1029 HSIs.
 
 # Architecture
 
-## Dual-domain Spectral-spatial Transformer-based Unfolding Framework
-
+## Deep Frequency Unfolding Framework
 <div align=center>
 <img src="https://github.com/ID1267/CMDT/blob/main/figures/DFUF.png" height="80%" width="80%" alt="">
 </div>
 
-Diagram of the overall framework. (a) Correlation-driven Mixing Domains Transformer-based Unfolding Framework. (b) The pipeline of the U-shaped prior module. (c) The correlation-driven mixing domains transformer. (d) The structure of space domain learning.
+Diagram of the overall framework. (a) Deep Frequency Unfolding Framework. (b) The pipeline of the U-shaped prior module. (c) The correlation-driven mixing domains transformer. (d) The structure of space domain learning.
 
-## Frequency Process
+## The Frequency Domain Learning
 
 <div align=center>
 <img src="https://github.com/ID1267/CMDT/blob/main/figures/FDLB.png" height="80%" width="80%" alt="">
