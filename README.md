@@ -51,7 +51,7 @@ Visualization of the spectral-spatial correlation heatmap from frequency token-1
 
 <div align=center>
 <img src="https://github.com/ID1267/CMDT/blob/main/figures/histogram.png" height="30%" width="30%" alt="">
-<img src="https://github.com/ID1267/CMDT/blob/main/figures/probability.png" height="10%" width="20%" alt="">
+<img src="https://github.com/ID1267/CMDT/blob/main/figures/probability.png" height="10%" width="25%" alt="">
 </div>
 
 (a) Histogram of the number of samples with spectral correlation in two domains of 1029 HSIs. (b) The probability distribution graph of spectral correlation in two domains of 1029 HSIs.
