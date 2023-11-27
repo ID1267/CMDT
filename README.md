@@ -1,13 +1,13 @@
-# DSTUF for CASSI
+# CMDT for CASSI
 
 
 This repo is the illustration and implementation of paper "Exploiting Frequency Correlation for Hyperspectral Image Reconstruction"
 
 |                          *Scene 1*                           |                          *Scene 2*                           |                          *Scene 3*                           |                          *Scene 4*                           |                          *Scene 5*                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| <img src="https://github.com/ID1267/DST/blob/main/figures/woman.gif"  height="80%" width="80%"> | <img src="https://github.com/ID1267/DST/blob/main/figures/cube.gif" width="80%" height="80%"> | <img src="https://github.com/ID1267/DST/blob/main/figures/colorboard.gif" width="80%" height="80%"> | <img src="https://github.com/ID1267/DST/blob/main/figures/orange.gif" width="80%" height="80%"> | <img src="https://github.com/ID1267/DST/blob/main/figures/cup.gif"  height="80%" width="80%"> |
+| <img src="https://github.com/ID1267/CMDT/blob/main/figures/woman.gif"  height="80%" width="80%"> | <img src="https://github.com/ID1267/CMDT/blob/main/figures/cube.gif" width="80%" height="80%"> | <img src="https://github.com/ID1267/CMDT/blob/main/figures/colorboard.gif" width="80%" height="80%"> | <img src="https://github.com/ID1267/CMDT/blob/main/figures/orange.gif" width="80%" height="80%"> | <img src="https://github.com/ID1267/CMDT/blob/main/figures/cup.gif"  height="80%" width="80%"> |
 |                          *Scene 6*                           |                          *Scene 7*                           |                          *Scene 8*                           |                          *Scene 9*                           |                          *Scene 10*                           |
-| <img src="https://github.com/ID1267/DST/blob/main/figures/person.gif"  height="80%" width="80%"> | <img src="https://github.com/ID1267/DST/blob/main/figures/flower.gif" width="80%" height="80%"> | <img src="https://github.com/ID1267/DST/blob/main/figures/duck.gif" width="80%" height="80%"> | <img src="https://github.com/ID1267/DST/blob/main/figures/pencil.gif" width="80%" height="80%"> | <img src="https://github.com/ID1267/DST/blob/main/figures/lion.gif"  height="80%" width="80%"> |
+| <img src="https://github.com/ID1267/CMDT/blob/main/figures/person.gif"  height="80%" width="80%"> | <img src="https://github.com/ID1267/CMDT/blob/main/figures/flower.gif" width="80%" height="80%"> | <img src="https://github.com/ID1267/CMDT/blob/main/figures/duck.gif" width="80%" height="80%"> | <img src="https://github.com/ID1267/CMDT/blob/main/figures/pencil.gif" width="80%" height="80%"> | <img src="https://github.com/ID1267/CMDT/blob/main/figures/lion.gif"  height="80%" width="80%"> |
 
 
 
@@ -18,25 +18,25 @@ Deep priors have emerged as potent methods in hyperspectral image (HSI) reconstr
 # Comparison with state-of-the-art methods
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/psnr-ssim-flops-final.png" height="50%" width="50%" alt="">
+<img src="https://github.com/ID1267/CMDT/blob/main/figures/psnr-ssim-flops-final.png" height="50%" width="50%" alt="">
 </div>
 
 PSNR-Params-FLOPs comparisons of our method and SOTA methods. The scale of circles matches with parameters (M).
 
 # Hyperspectral Frequency Correlation (HFC) Prior
 
-## Rough Visualization
+## Initial Observation
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/visualdct.jpg" height="80%" width="80%" alt="">
+<img src="https://github.com/ID1267/CMDT/blob/main/figures/visualdct.jpg" height="80%" width="80%" alt="">
 </div>
 
-The first colomn is the $9^{th}$ Scene of KAIST. The rest columns are the spectrograms of different spectra with specific wavelengths of $Scene9$.
+The first column is the $9^{th}$ Scene of KAIST. The rest columns are the spectrograms of different spectra with specific wavelengths of $Scene9$.
 
 ## HFC PartI
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/HFC.png" height="40%" width="40%" alt="">
+<img src="https://github.com/ID1267/CMDT/blob/main/figures/HFC.png" height="40%" width="40%" alt="">
 </div>
 
 Top: example HSIs from the nature scenes and the remote sensing scenes. Bottom: the corresponding spectral-spatial correlation heatmap of frequency tokens and space tokens.
@@ -44,16 +44,16 @@ Top: example HSIs from the nature scenes and the remote sensing scenes. Bottom: 
 ## HFC PartII
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/patch.png" height="50%" width="50%" alt="">
+<img src="https://github.com/ID1267/CMDT/blob/main/figures/patch.png" height="50%" width="50%" alt="">
 </div>
 
-Visualization of the spectral-spatial correlation heatmap from frequency token-1 to token-5 in spectrogram of HSI.
+Visualization of the spectral-spatial correlation heatmap from frequency token-1 to token-5 in the spectrogram of HSI.
 
 ## Statistics of HFC
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/distribution_graph.png" height="30%" width="30%" alt="">
-<img src="https://github.com/ID1267/DST/blob/main/figures/distribution_graph_whole.png" height="30%" width="30%" alt="">
+<img src="https://github.com/ID1267/CMDT/blob/main/figures/distribution_graph.png" height="30%" width="30%" alt="">
+<img src="https://github.com/ID1267/CMDT/blob/main/figures/distribution_graph_whole.png" height="30%" width="30%" alt="">
 </div>
 
 (a) Histogram of the number of samples with spectral correlation in dual domains of 1029 HSIs. (b) The probability distribution graph of spectral correlation in dual domains of 1029 HSIs.
@@ -63,7 +63,7 @@ Visualization of the spectral-spatial correlation heatmap from frequency token-1
 ## Dual-domain Spectral-spatial Transformer-based Unfolding Framework
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/DFUF.png" height="80%" width="80%" alt="">
+<img src="https://github.com/ID1267/CMDT/blob/main/figures/DFUF.png" height="80%" width="80%" alt="">
 </div>
 
 Diagram of the overall framework. (a) Correlation-driven Mixing Domains Transformer-based Unfolding Framework. (b) The pipeline of the U-shaped prior module. (c) The correlation-driven mixing domains transformer. (d) The structure of space domain learning.
@@ -71,7 +71,7 @@ Diagram of the overall framework. (a) Correlation-driven Mixing Domains Transfor
 ## Frequency Process
 
 <div align=center>
-<img src="https://github.com/ID1267/DST/blob/main/figures/FDLB.png" height="80%" width="80%" alt="">
+<img src="https://github.com/ID1267/CMDT/blob/main/figures/FDLB.png" height="80%" width="80%" alt="">
 </div>
 
 The pipeline of the frequency domain learning. (a) The structure of the spectral-wise self-attention of frequency. (b) The structure of the spectral-spatial interaction of frequency.
@@ -85,7 +85,7 @@ The pipeline of the frequency domain learning. (a) The structure of the spectral
 Download cave_1024_28 ([Baidu Disk](https://pan.baidu.com/s/1X_uXxgyO-mslnCTn4ioyNQ), code: `fo0q` | [One Drive](https://bupteducn-my.sharepoint.com/:f:/g/personal/mengziyi_bupt_edu_cn/EmNAsycFKNNNgHfV9Kib4osB7OD4OSu-Gu6Qnyy5PweG0A?e=5NrM6S)), CAVE_512_28 ([Baidu Disk](https://pan.baidu.com/s/1ue26weBAbn61a7hyT9CDkg), code: `ixoe` | [One Drive](https://mailstsinghuaeducn-my.sharepoint.com/:f:/g/personal/lin-j21_mails_tsinghua_edu_cn/EjhS1U_F7I1PjjjtjKNtUF8BJdsqZ6BSMag_grUfzsTABA?e=sOpwm4)), KAIST_CVPR2021 ([Baidu Disk](https://pan.baidu.com/s/1LfPqGe0R_tuQjCXC_fALZA), code: `5mmn` | [One Drive](https://mailstsinghuaeducn-my.sharepoint.com/:f:/g/personal/lin-j21_mails_tsinghua_edu_cn/EkA4B4GU8AdDu0ZkKXdewPwBd64adYGsMPB8PNCuYnpGlA?e=VFb3xP)), TSA_simu_data ([Baidu Disk](https://pan.baidu.com/s/1LI9tMaSprtxT8PiAG1oETA), code: `efu8` | [One Drive](https://1drv.ms/u/s!Au_cHqZBKiu2gYFDwE-7z1fzeWCRDA?e=ofvwrD)), TSA_real_data ([Baidu Disk](https://pan.baidu.com/s/1RoOb1CKsUPFu0r01tRi5Bg), code: `eaqe` | [One Drive](https://1drv.ms/u/s!Au_cHqZBKiu2gYFTpCwLdTi_eSw6ww?e=uiEToT)), and then put them into the corresponding folders of `datasets/` and recollect them as the following form:
 
 ```shell
-|--DST
+|--CMDT
     |--real
     	|-- test_code
     	|-- train_code
@@ -135,48 +135,48 @@ Download cave_1024_28 ([Baidu Disk](https://pan.baidu.com/s/1X_uXxgyO-mslnCTn4io
 
 
 ```
-cd DST/simulation/train_code/
+cd CMDT/simulation/train_code/
 
-# DSTUF 2stage
-python train.py --template dstuf_2stg --outf ./exp/dstuf_2stg/ --method dstuf_2stg
+# CMDT 2stage
+python train.py --template CMDT_2stg --outf ./exp/CMDT_2stg/ --method CMDT_2stg
 
-# DSTUF 3stage
-python train.py --template dstuf_3stg --outf ./exp/dstuf_3stg/ --method dstuf_3stg
+# CMDT 3stage
+python train.py --template CMDT_3stg --outf ./exp/CMDT_3stg/ --method CMDT_3stg
 
-# DSTUF 5stage
-python train.py --template dstuf_5stg --outf ./exp/dstuf_5stg/ --method dstuf_5stg
+# CMDT 5stage
+python train.py --template CMDT_5stg --outf ./exp/CMDT_5stg/ --method CMDT_5stg
 
-# DSTUF 9stage
-python train.py --template dstuf_9stg --outf ./exp/dstuf_9stg/ --method dstuf_9stg
+# CMDT 9stage
+python train.py --template CMDT_9stg --outf ./exp/CMDT_9stg/ --method CMDT_9stg
 ```
 
-The training log, trained model, and reconstrcuted HSI will be available in `DSTUF/simulation/train_code/exp/` .
+The training log, trained model, and reconstructed HSI will be available in `CMDT/simulation/train_code/exp/`.
 
 ### Testing
 
-Place the pretrained model path to "opt.pretrained_model_path" in "DST/simulation/test_code/option.py".
+Place the pre-trained model path to "opt.pretrained_model_path" in "CMDT/simulation/test_code/option.py".
 
 Run the following command to test the model on the simulation dataset.
 
 ```
-cd DST/simulation/test_code/
+cd CMDT/simulation/test_code/
 
 
-# DSTUF 2stage
-python test.py --template dstuf_2stg --outf ./exp/dstuf_2stg/ --method dstuf_2stg
+# CMDT 2stage
+python test.py --template CMDT_2stg --outf ./exp/CMDT_2stg/ --method CMDT_2stg
 
-# DSTUF 3stage
-python test.py --template dstuf_3stg --outf ./exp/dstuf_3stg/ --method dstuf_3stg
+# CMDT 3stage
+python test.py --template CMDT_3stg --outf ./exp/CMDT_3stg/ --method CMDT_3stg
 
-# DSTUF 5stage
-python test.py --template dstuf_5stg --outf ./exp/dstuf_5stg/ --method dstuf_5stg
+# CMDT 5stage
+python test.py --template CMDT_5stg --outf ./exp/CMDT_5stg/ --method CMDT_5stg
 
-# DSTUF 9stage
-python test.py --template dstuf_9stg --outf ./exp/dstuf_9stg/ --method dstuf_9stg
+# CMDT 9stage
+python test.py --template CMDT_9stg --outf ./exp/CMDT_9stg/ --method CMDT_9stg
 ```
 
-- The reconstrcuted HSIs will be output into `DSTUF/simulation/test_code/exp/`
-- Place the reconstructed results into `DSTUF/simulation/test_code/Quality_Metrics/results` and
+- The reconstructed HSIs will be output into `CMDT/simulation/test_code/exp/`
+- Place the reconstructed results into `CMDT/simulation/test_code/Quality_Metrics/results` and
 
 ```
 Run cal_quality_assessment.m
@@ -186,11 +186,11 @@ to calculate the PSNR and SSIM of the reconstructed HSIs.
 
 ### Visualization
 
-- Put the reconstruted HSI in `DSTUF/visualization/simulation_results/results` and rename it as method.mat, e.g., DSTUF_2stg.mat
+- Put the reconstructed HSI in `CMDT/visualization/simulation_results/results` and rename it as method.mat, e.g., CMDT_2stg.mat
 - Generate the RGB images of the reconstructed HSIs
 
 ```
-cd DSTUF/visualization/
+cd CMDT/visualization/
 Run show_simulation.m 
 ```
 
@@ -199,34 +199,34 @@ Run show_simulation.m
 ### Training
 
 ```
-cd DSTUF/real/train_code/
+cd CMDT/real/train_code/
 
-# DSTUF 2stage
-python train.py --template DSTUF_2stg --outf ./exp/DSTUF_2stg/ --method DSTUF_2stg
+# CMDT 2stage
+python train.py --template CMDT_2stg --outf ./exp/CMDT_2stg/ --method CMDT_2stg
 ```
 
-The training log and trained model will be available in `DSTUF/real/train_code/exp/`
+The training log and trained model will be available in `CMDT/real/train_code/exp/`
 
 ### Testing
 
 ```
-Place the pretrained model path to "pretrained_model_path" in "DSTUF/real/test_code/test.py".
+Place the pre-trained model path to "pretrained_model_path" in "CMDT/real/test_code/test.py".
 
-cd DSTUF/real/test_code/
+cd CMDT/real/test_code/
 
-# DSTUF 2stage
-python test.py --template DSTUF_2stg --outf ./exp/DSTUF_2stg/ --method DSTUF_2stg
+# CMDT 2stage
+python test.py --template CMDT_2stg --outf ./exp/CMDT_2stg/ --method CMDT_2stg
 ```
 
-The reconstrcuted HSI will be output into `DSTUF/real/test_code/Results/`
+The reconstructed HSI will be output into `CMDT/real/test_code/Results/`
 
 ### Visualization
 
-- Put the reconstruted HSI in `DSTUF/visualization/real_results/results` and rename it as method.mat, e.g., DSTUF_2stg.mat.
+- Put the reconstructed HSI in `CMDT/visualization/real_results/results` and rename it as method.mat, e.g., CMDT_2stg.mat.
 - Generate the RGB images of the reconstructed HSI
 
 ```
-cd DSTUF/visualization/
+cd CMDT/visualization/
 Run show_real.m
 ```
 
