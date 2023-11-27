@@ -28,7 +28,7 @@ PSNR-Params-FLOPs comparisons of our method and SOTA methods. The scale of circl
 ## Initial Observation
 
 <div align=center>
-<img src="https://github.com/ID1267/CMDT/blob/main/figures/visualdct.jpg" height="80%" width="80%" alt="">
+<img src="https://github.com/ID1267/CMDT/blob/main/figures/dctvisual.png" height="80%" width="80%" alt="">
 </div>
 
 The first column is the $9^{th}$ Scene of KAIST. The rest columns are the spectrograms of different spectra with specific wavelengths of $Scene9$.
