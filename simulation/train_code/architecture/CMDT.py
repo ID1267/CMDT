@@ -48,7 +48,7 @@ class GELU(nn.Module):
         return F.gelu(x)
 
 # The Frequency Domain Learning
-class SpecDCT(nn.Module):
+class FDL(nn.Module):
     def __init__(self,dim,heads,dim_head,h,w):
         super().__init__()
         self.dim=dim
@@ -69,18 +69,18 @@ class SpecDCT(nn.Module):
         
         self.proj=nn.Linear(dim_head*heads,dim,bias=True)
 
-        self.high_freq_conv1=nn.Sequential(
+        self.STI=nn.Sequential(
             nn.Conv2d(dim, dim, 1, 1, 0, bias=False),
             GELU(),
             nn.Conv2d(dim, dim, 3, 1, 1, bias=False, groups=dim),
             GELU()
         )
-        self.high_freq_conv2=nn.Sequential(
+        self.STE=nn.Sequential(
             nn.Conv2d(dim, dim, 1, 1, 0, bias=False),
             GELU()
         )
         # Learnable Gating Filter
-        self.coef_emb=nn.Parameter(torch.ones(h,w))
+        self.LF=nn.Parameter(torch.ones(h,w))
         self.Eone=torch.ones(h,w).cuda().float()
 
     def forward(self,x_input):
@@ -117,23 +117,23 @@ class SpecDCT(nn.Module):
 
         # spectral-spatial interaction of frequency (SIF)
         x_rbtri_highfreq=x_dct
-        x_conv_highfreq=self.high_freq_conv1(x_rbtri_highfreq)+x_rbtri_highfreq
-        x_high_conv=self.high_freq_conv2(x_conv_highfreq)+x_conv_highfreq
+        x_conv_highfreq=self.STI(x_rbtri_highfreq)+x_rbtri_highfreq
+        x_high_conv=self.STE(x_conv_highfreq)+x_conv_highfreq
 
         # Learnable Gating Filter
-        expand_coef=self.coef_emb.expand([bs,nc,height,width])
+        LGF=self.LF.expand([bs,nc,height,width])
         Eone=self.Eone.expand([bs,nc,height,width])
-        coef_high=Eone-expand_coef
+        LGF_high=Eone-LGF
 
         # Frequency Level Gating
-        x_out=expand_coef*x_low_attn+coef_high*x_high_conv
+        x_out=LGF*x_low_attn+LGF_high*x_high_conv
         x_out=x_out+x_dct
         x_out=dct.idct_2d(x_out).permute(0,2,3,1)
         
         return x_out
 
 # The Space Domain Learning
-class localAttn(nn.Module):
+class SDL(nn.Module):
     def __init__(self,dim,heads,dim_head,h,w,window_size):
         super().__init__()
         self.dim=dim
@@ -179,7 +179,7 @@ class localAttn(nn.Module):
         return out
 
 # Mixing Domains Learning Block
-class HS_MSA(nn.Module):
+class MDLB(nn.Module):
     def __init__(
             self,
             dim,
@@ -205,9 +205,9 @@ class HS_MSA(nn.Module):
         inner_dim = dim_head * heads
 
         # The Frequency Domain Learning
-        self.spec_attn=SpecDCT(dim=self.dim,heads=self.heads,dim_head=dim_head,h=height//heads,w=width//heads)
+        self.spec_attn=FDL(dim=self.dim,heads=self.heads,dim_head=dim_head,h=height//heads,w=width//heads)
         # The Space Domain Learning
-        self.local_attn=localAttn(dim=self.dim,heads=self.heads,dim_head=dim_head,h=height,w=width,window_size=window_size)
+        self.local_attn=SDL(dim=self.dim,heads=self.heads,dim_head=dim_head,h=height,w=width,window_size=window_size)
         self.fusion=nn.Conv2d(self.dim*2,self.dim,1,1,0,bias=True)
 
     def forward(self, x):
@@ -231,7 +231,7 @@ class HS_MSA(nn.Module):
         return out
 
 # Correlation-driven Mixing Domains Transformer
-class HSAB(nn.Module):
+class CMDT(nn.Module):
     def __init__(
             self,
             dim,
@@ -247,7 +247,7 @@ class HSAB(nn.Module):
         self.blocks = nn.ModuleList([])
         for _ in range(num_blocks):
             self.blocks.append(nn.ModuleList([
-                PreNorm(dim, HS_MSA(dim=dim, window_size=window_size, dim_head=dim_head, heads=heads,channel=channel,height=height,width=width, only_local_branch=(heads==1))),
+                PreNorm(dim, MDLB(dim=dim, window_size=window_size, dim_head=dim_head, heads=heads,channel=channel,height=height,width=width, only_local_branch=(heads==1))),
                 PreNorm(dim, FeedForward(dim=dim))
             ]))
 
@@ -284,9 +284,9 @@ class FeedForward(nn.Module):
         return out.permute(0, 2, 3, 1)
 
 # The U-shaped Prior Module
-class HST(nn.Module):
+class PM(nn.Module):
     def __init__(self, in_dim=28, out_dim=28, dim=28, num_blocks=[1,1,1]):
-        super(HST, self).__init__()
+        super(PM, self).__init__()
         self.dim = dim
         self.scales = len(num_blocks)
 
@@ -298,13 +298,13 @@ class HST(nn.Module):
         dim_scale = dim
         for i in range(self.scales-1):
             self.encoder_layers.append(nn.ModuleList([
-                HSAB(dim=dim_scale, num_blocks=num_blocks[i], dim_head=dim, heads=dim_scale // dim),
+                CMDT(dim=dim_scale, num_blocks=num_blocks[i], dim_head=dim, heads=dim_scale // dim),
                 nn.Conv2d(dim_scale, dim_scale * 2, 4, 2, 1, bias=False),
             ]))
             dim_scale *= 2
 
         # Bottleneck
-        self.bottleneck = HSAB(dim=dim_scale, dim_head=dim, heads=dim_scale // dim, num_blocks=num_blocks[-1])
+        self.bottleneck = CMDT(dim=dim_scale, dim_head=dim, heads=dim_scale // dim, num_blocks=num_blocks[-1])
 
         # Decoder
         self.decoder_layers = nn.ModuleList([])
@@ -312,7 +312,7 @@ class HST(nn.Module):
             self.decoder_layers.append(nn.ModuleList([
                 nn.ConvTranspose2d(dim_scale, dim_scale // 2, stride=2, kernel_size=2, padding=0, output_padding=0),
                 nn.Conv2d(dim_scale, dim_scale // 2, 1, 1, bias=False),
-                HSAB(dim=dim_scale // 2, num_blocks=num_blocks[self.scales - 2 - i], dim_head=dim,
+                CMDT(dim=dim_scale // 2, num_blocks=num_blocks[self.scales - 2 - i], dim_head=dim,
                      heads=(dim_scale // 2) // dim),
             ]))
             dim_scale //= 2
@@ -350,8 +350,8 @@ class HST(nn.Module):
 
         # Encoder
         fea_encoder = []
-        for (HSAB, FeaDownSample) in self.encoder_layers:
-            fea = HSAB(fea)
+        for (CMDT, FeaDownSample) in self.encoder_layers:
+            fea = CMDT(fea)
             fea_encoder.append(fea)
             fea = FeaDownSample(fea)
 
@@ -359,10 +359,10 @@ class HST(nn.Module):
         fea = self.bottleneck(fea)
 
         # Decoder
-        for i, (FeaUpSample, Fution, HSAB) in enumerate(self.decoder_layers):
+        for i, (FeaUpSample, Fution, CMDT) in enumerate(self.decoder_layers):
             fea = FeaUpSample(fea)
             fea = Fution(torch.cat([fea, fea_encoder[self.scales-2-i]], dim=1))
-            fea = HSAB(fea)
+            fea = CMDT(fea)
 
         # Mapping
         out = self.mapping(fea) + x
@@ -391,13 +391,13 @@ def shift_back_3d(inputs,step=2):
     return inputs
 
 # The Iteration Parameter Estimator
-class HyPaNet(nn.Module):
+class IPE(nn.Module):
     def __init__(self, in_nc=29, out_nc=8, channel=64):
-        super(HyPaNet, self).__init__()
+        super(IPE, self).__init__()
         self.fution = nn.Conv2d(in_nc, channel, 1, 1, 0, bias=True)
         self.down_sample = nn.Conv2d(channel, channel, 3, 2, 1, bias=True)
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
-        self.mlp_9stg = nn.Sequential(
+        self.mlp = nn.Sequential(
                 nn.Conv2d(channel, channel, 1, padding=0, bias=True),
                 nn.ReLU(inplace=True),
                 nn.Conv2d(channel, channel, 1, padding=0, bias=True),
@@ -410,18 +410,18 @@ class HyPaNet(nn.Module):
     def forward(self, x):
         x = self.down_sample(self.relu(self.fution(x)))
         x = self.avg_pool(x)
-        x = self.mlp_9stg(x) + 1e-6
+        x = self.mlp(x) + 1e-6
         return x[:,:self.out_nc//2,:,:], x[:,self.out_nc//2:,:,:]
 
 # Deep Frequency Unfolding Framework
-class DAUHST(nn.Module):
+class DFUF(nn.Module):
 
-    def __init__(self, num_iterations=9):
-        super(DAUHST, self).__init__()
-        self.para = HyPaNet(in_nc=28, out_nc=num_iterations*2)
+    def __init__(self, num_iterations=2):
+        super(DFUF, self).__init__()
+        self.para = IPE(in_nc=28, out_nc=num_iterations*2)
         self.fution = nn.Conv2d(56, 28, 1, padding=0, bias=True)
         self.num_iterations = num_iterations
-        self.denoiser=HST(in_dim=29, out_dim=28, dim=28, num_blocks=[1,1,1])
+        self.denoiser=PM(in_dim=29, out_dim=28, dim=28, num_blocks=[1,1,1])
     def initial(self, y, Phi):
         """
         :param y: [b,256,310]
@@ -447,7 +447,7 @@ class DAUHST(nn.Module):
         """
         Phi, Phi_s = input_mask
         
-        # The IPE
+        # The Iteration Parameter Estimation
         z, alphas, betas = self.initial(y, Phi)
         for i in range(self.num_iterations):
             alpha, beta = alphas[:,i,:,:], betas[:,i:i+1,:,:]
