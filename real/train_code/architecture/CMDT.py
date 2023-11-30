@@ -59,9 +59,9 @@ class FDL(nn.Module):
 
         # temp=self.dim//28
 
-        self.to_q=nn.Linear(dim,dim_head*heads,bias=False)
-        self.to_k=nn.Linear(dim,dim_head*heads,bias=False)
-        self.to_v=nn.Linear(dim,dim_head*heads,bias=False)
+        self.to_FreqQ=nn.Linear(dim,dim_head*heads,bias=False)
+        self.to_FreqK=nn.Linear(dim,dim_head*heads,bias=False)
+        self.to_FreqV=nn.Linear(dim,dim_head*heads,bias=False)
         self.rescale=nn.Parameter(torch.ones(heads,1,1))
         # position embedding
         # self.pos_emb=nn.Parameter(torch.Tensor(1,heads,dim_head,dim_head))
@@ -94,12 +94,12 @@ class FDL(nn.Module):
         x_dct=dct.dct_2d(x_in)
 
         # Spectral-wise self-Attention of Frequency
-        x_in1=rearrange(x_dct,'b c (hh m0) (ww m1) -> b (hh ww) c m0 m1',hh=kernel_num1,ww=kernel_num2,m0=kernel,m1=kernel)
-        x_dct_new=rearrange(x_in1,'b n c m0 m1 -> b n (m0 m1) c')
+        x_input_SAF=rearrange(x_dct,'b c (hh m0) (ww m1) -> b (hh ww) c m0 m1',hh=kernel_num1,ww=kernel_num2,m0=kernel,m1=kernel)
+        x_dct_new=rearrange(x_input_SAF,'b n c m0 m1 -> b n (m0 m1) c')
         x_tri=x_dct_new
-        q_dct=self.to_q(x_tri)
-        k_dct=self.to_k(x_tri)
-        v_dct=self.to_v(x_tri)
+        q_dct=self.to_FreqQ(x_tri)
+        k_dct=self.to_FreqK(x_tri)
+        v_dct=self.to_FreqV(x_tri)
         q_dct,k_dct,v_dct=map(lambda t: rearrange(t,'b n mm (h d) -> b n h mm d',h=self.heads),(q_dct,k_dct,v_dct))
         q_dct,k_dct,v_dct=map(lambda t: t.transpose(-2,-1),(q_dct,k_dct,v_dct))
         q_dct=F.normalize(q_dct,dim=-1,p=2)
@@ -113,12 +113,12 @@ class FDL(nn.Module):
         x1=rearrange(x0,'b n h d mm -> b n mm (h d)',h=self.heads,d=self.dim_head)
         x2=self.proj(x1)
         x3=rearrange(x2,'b n (m0 m1) c -> b n c m0 m1',m0=kernel,m1=kernel)
-        x_low_attn=rearrange(x3,'b (hh ww) c m0 m1 -> b c (hh m0) (ww m1)',hh=kernel_num1,ww=kernel_num2,m0=kernel,m1=kernel)
+        x_SAF=rearrange(x3,'b (hh ww) c m0 m1 -> b c (hh m0) (ww m1)',hh=kernel_num1,ww=kernel_num2,m0=kernel,m1=kernel)
 
         # spectral-spatial interaction of frequency (SIF)
-        x_rbtri_highfreq=x_dct
-        x_conv_highfreq=self.STI(x_rbtri_highfreq)+x_rbtri_highfreq
-        x_high_conv=self.STE(x_conv_highfreq)+x_conv_highfreq
+        x_input_SIF=x_dct
+        x_mid_SIF=self.STI(x_input_SIF)+x_input_SIF
+        x_SIF=self.STE(x_mid_SIF)+x_mid_SIF
 
         # Learnable Gating Filter
         LGF=self.LF.expand([bs,nc,height,width])
@@ -126,7 +126,7 @@ class FDL(nn.Module):
         LGF_high=Eone-LGF
 
         # Frequency Level Gating
-        x_out=LGF*x_low_attn+LGF_high*x_high_conv
+        x_out=LGF*x_SAF+LGF_high*x_SIF
         x_out=x_out+x_dct
         x_out=dct.idct_2d(x_out).permute(0,2,3,1)
         
@@ -145,8 +145,8 @@ class SDL(nn.Module):
 
         # temp=self.dim//28
 
-        self.to_q=nn.Linear(dim,dim_head*heads,bias=False)
-        self.to_kv=nn.Linear(dim,dim_head*heads*2,bias=False)
+        self.to_SpaceQ=nn.Linear(dim,dim_head*heads,bias=False)
+        self.to_SpaceKV=nn.Linear(dim,dim_head*heads*2,bias=False)
         # self.to_v=nn.Linear(dim,dim_head*heads,bias=False)
         # self.rescale=nn.Parameter(torch.ones(heads,1,1))
         self.rescale=dim_head**-0.5
@@ -163,8 +163,8 @@ class SDL(nn.Module):
         # x_in=x_input.permute(0,3,1,2)
         
         x_inp = rearrange(x_input, 'b (h b0) (w b1) c -> (b h w) (b0 b1) c', b0=self.window_size[0], b1=self.window_size[1])
-        q = self.to_q(x_inp)
-        k, v = self.to_kv(x_inp).chunk(2, dim=-1)
+        q = self.to_SpaceQ(x_inp)
+        k, v = self.to_SpaceKV(x_inp).chunk(2, dim=-1)
         q, k, v = map(lambda t: rearrange(t, 'b n (h d) -> b h n d', h=self.heads), (q, k, v))
         q *= self.rescale
         sim = einsum('b h i d, b h j d -> b h i j', q, k)
@@ -205,9 +205,9 @@ class MDLB(nn.Module):
         inner_dim = dim_head * heads
 
         # The Frequency Domain Learning
-        self.spec_attn=FDL(dim=self.dim,heads=self.heads,dim_head=dim_head,h=height//heads,w=width//heads)
+        self.fdl=FDL(dim=self.dim,heads=self.heads,dim_head=dim_head,h=height//heads,w=width//heads)
         # The Space Domain Learning
-        self.local_attn=SDL(dim=self.dim,heads=self.heads,dim_head=dim_head,h=height,w=width,window_size=window_size)
+        self.sdl=SDL(dim=self.dim,heads=self.heads,dim_head=dim_head,h=height,w=width,window_size=window_size)
         self.fusion=nn.Conv2d(self.dim*2,self.dim,1,1,0,bias=True)
 
     def forward(self, x):
@@ -220,13 +220,13 @@ class MDLB(nn.Module):
         assert h % w_size[0] == 0 and w % w_size[1] == 0, 'fmap dimensions must be divisible by the window size'
 
         # The Frequency Domain Learning
-        out_fd=self.spec_attn(x)
+        out_fdl=self.fdl(x)
         # The Space Domain Learning
-        out_local=self.local_attn(x)
+        out_sdl=self.sdl(x)
 
         # Mixing Domains
-        spec_local=torch.cat([out_fd,out_local],dim=-1)
-        out=self.fusion(spec_local.permute(0,3,1,2)).permute(0,2,3,1)
+        mix_domains=torch.cat([out_fdl,out_sdl],dim=-1)
+        out=self.fusion(mix_domains.permute(0,3,1,2)).permute(0,2,3,1)
 
         return out
 
