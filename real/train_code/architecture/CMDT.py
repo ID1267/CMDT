@@ -116,6 +116,7 @@ class SpecDCT(nn.Module):
         x_low_attn=rearrange(x3,'b (hh ww) c m0 m1 -> b c (hh m0) (ww m1)',hh=kernel_num1,ww=kernel_num2,m0=kernel,m1=kernel)
 
         # spectral-spatial interaction of frequency (SIF)
+        x_rbtri_highfreq=x_dct
         x_conv_highfreq=self.high_freq_conv1(x_rbtri_highfreq)+x_rbtri_highfreq
         x_high_conv=self.high_freq_conv2(x_conv_highfreq)+x_conv_highfreq
 
