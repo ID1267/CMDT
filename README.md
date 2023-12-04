@@ -135,16 +135,16 @@ Download cave_1024_28 ([Baidu Disk](https://pan.baidu.com/s/1X_uXxgyO-mslnCTn4io
 cd CMDT/simulation/train_code/
 
 # CMDT 2stage
-python train.py --template CMDT_2stg --outf ./exp/CMDT_2stg/ --method CMDT_2stg
+python train.py --template CMDT_2stg --outf ./exp/CMDT/2stage/ --method CMDT_2stg
 
 # CMDT 3stage
-python train.py --template CMDT_3stg --outf ./exp/CMDT_3stg/ --method CMDT_3stg
+python train.py --template CMDT_3stg --outf ./exp/CMDT/3stage/ --method CMDT_3stg
 
 # CMDT 5stage
-python train.py --template CMDT_5stg --outf ./exp/CMDT_5stg/ --method CMDT_5stg
+python train.py --template CMDT_5stg --outf ./exp/CMDT/5stage/ --method CMDT_5stg
 
 # CMDT 9stage
-python train.py --template CMDT_9stg --outf ./exp/CMDT_9stg/ --method CMDT_9stg
+python train.py --template CMDT_9stg --outf ./exp/CMDT/9stage/ --method CMDT_9stg
 ```
 
 The training log, trained model, and reconstructed HSI will be available in `CMDT/simulation/train_code/exp/`.
@@ -160,16 +160,16 @@ cd CMDT/simulation/test_code/
 
 
 # CMDT 2stage
-python test.py --template CMDT_2stg --outf ./exp/CMDT_2stg/ --method CMDT_2stg
+python test.py --template CMDT_2stg --outf ./exp/CMDT/2stage/ --method CMDT_2stg
 
 # CMDT 3stage
-python test.py --template CMDT_3stg --outf ./exp/CMDT_3stg/ --method CMDT_3stg
+python test.py --template CMDT_3stg --outf ./exp/CMDT/3stage/ --method CMDT_3stg
 
 # CMDT 5stage
-python test.py --template CMDT_5stg --outf ./exp/CMDT_5stg/ --method CMDT_5stg
+python test.py --template CMDT_5stg --outf ./exp/CMDT/5stage/ --method CMDT_5stg
 
 # CMDT 9stage
-python test.py --template CMDT_9stg --outf ./exp/CMDT_9stg/ --method CMDT_9stg
+python test.py --template CMDT_9stg --outf ./exp/CMDT/9stage/ --method CMDT_9stg
 ```
 
 - The reconstructed HSIs will be output into `CMDT/simulation/test_code/exp/`
@@ -199,7 +199,7 @@ Run show_simulation.m
 cd CMDT/real/train_code/
 
 # CMDT 2stage
-python train.py --template CMDT_2stg --outf ./exp/CMDT_2stg/ --method CMDT_2stg
+python train.py --template CMDT_2stg --outf ./exp/CMDT/2stage/ --method CMDT_2stg
 ```
 
 The training log and trained model will be available in `CMDT/real/train_code/exp/`
@@ -212,7 +212,7 @@ Place the pre-trained model path to "pretrained_model_path" in "CMDT/real/test_c
 cd CMDT/real/test_code/
 
 # CMDT 2stage
-python test.py --template CMDT_2stg --outf ./exp/CMDT_2stg/ --method CMDT_2stg
+python test.py --template CMDT_2stg --outf ./exp/CMDT/2stage/ --method CMDT_2stg
 ```
 
 The reconstructed HSI will be output into `CMDT/real/test_code/Results/`
